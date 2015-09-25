@@ -1,4 +1,13 @@
-<h1>Build you own conference calling in c#</h1>
+<h1>Build your own Conference Calling in C#</h1>
+
+Tight budgets, busy schedules, better technology and the urge for immediacy has made virtual interaction a common communications and collaborations strategy for businesses today. Accordingly, [virtual teams are naturally increasing] (https://www.sinch.com/opinion/must-have-saas-tools-for-every-virtual-team/).
+
+On top of this, [psychological impacts of voice can be very useful in business] (https://www.sinch.com/learn/psychological-impacts-voice-business/), as voice is our most powerful tool for communication.
+
+However, as we've pointed out before; being the middleman of whichever project, and having to go through the “I just need to call X, Y and Z, and then I’ll call you back”-procedure is super annoying and time consuming.
+
+Create a system that connects a bunch of people in a conference call instead!
+
 In this tutorial, we'll show how easy it is to build a regular conference calling solution with both Dial in and Dial out functionality. In part 2 and 3, we'll add VoIP clients to the mix. 
 
 
@@ -71,7 +80,7 @@ public async Task<RedirectToRouteResult> Create(Conference model) {
 }
 ```
 
-Done. Next things is to give our system's Index action all current conferences. So, change Index action to look like this:
+Done. Next thing is to give our system's Index action all current conferences. So, change Index action to look like this:
 
 ```
 public ActionResult Index() {
@@ -268,9 +277,9 @@ Add a view with the following elements (don't worry about the form, we'll get to
 
 Let's take a look at what we added to the table (what a table!).
 
-First, we added the CLI wich is the number someone's calling from. Second, we displayed the duration the caller's duration in the conference. Third, we created a caller muted/not muted display.
+First, we added the CLI which is the number someone's calling from. Second, we displayed the duration the caller's duration in the conference. Third, we created a caller muted/not muted display.
 
-After a test spin of the functioinality, we'll add the methods to mute and kick out participants. 
+After a test spin of the functionality, we'll add the methods to mute and kick out participants. 
  
 Last enable the list in the Home/Index.cshtml to to be clickable. Change the list in **home/index.cshtml** to:
 
@@ -315,7 +324,7 @@ Go back to your **Home/Details.cshtml** view and add a couple of action links in
 
 What we did here was just checking whether a participant was muted or not, plus deciding if we wanted a mute/unmute action to be added. In your home controller, add the actions Mute, Unmute and Kick.
 
-I know it's a tutorial, but lets refactor a little bit as well.
+I know it's a tutorial, but let's refactor a little bit as well.
 
 So in **HomeController.cs**, create private methods for getting a confernce and a participant.
 
@@ -452,9 +461,9 @@ Deploy, make a call to the number, and enter your pin. Hit the details and you s
 
 
 ## Add someone to a Conference
-In this sytem, we also want the possibility to invite people into the conference by adding their numbers and calling them up.
+In this system, we also want the possibility to invite people into the conference by adding their numbers and calling them up.
 
-Let's start with adding a view to show the details for a confernce. In the **HomeController.cs**, add an Action called details, and start with just listing basic info plus the participants who's joining the conference.
+Let's start with adding a view to show the details for a conference. In the **HomeController.cs**, add an Action called details, and start with just listing basic info plus the participants who's joining the conference.
 
 We need to create a ViewModel than can hold this info in **ConferenceModels.cs**.
  
