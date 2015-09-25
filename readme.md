@@ -487,4 +487,4 @@ public ActionResult Details(int id) {
 
 Now, we need to add the code for the Form action to actually call out. This introduces a new type of client called **ApiFactory**: it makes it super simple to make request to our API and takes care of all the signing, URL, etc. for you. Open home controller and add an action and name it Callout.
 
-**Gather your people, go virtual and never ever go through the “I just need to call X, Y and Z, and then I’ll call you back”-procedure again.**
+**Gather your people, go virtual and never ever waste time on the “I just need to call X, Y and Z, and then I’ll call you back”-procedure again.**
