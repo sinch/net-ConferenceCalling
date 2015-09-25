@@ -1,15 +1,15 @@
-<h1>Build you own conference calling in c#</h1>
+<h1>Build you own conference calling in C#</h1>
 In this tutorial we will show how easy it is to build a regular conference calling solution with both Dial in and dial out functionality. In part 2 and part 3 we will add VoIP clients to the mix. 
 
 
 ## Prerequisites 
-1. Sinch account and an Voice enabled number https://www.sinch.com/dashboard#/numbers
+1. Sinch account and a Voice enabled number https://www.sinch.com/dashboard#/numbers
 2. Some cash on your account
 3. A MVC project with WebAPI enabled project
 
 
 ## The Data model
-In this tutorial we are going to use the Code first EF as our persistence layer, for my conferencing system I want to be able to give out a phone number together with a pin code to the people I want to join. And to be able to keep track of my conferences I want to give them a name. Pretty straight forward data model, create a file and call it ConferenceModels.cs and add below , also set the max length to 4 (we only want to respont to 4 digit codes in this example). For a production app you would need to ensure that the pincode is also unique but we wont worry about that here. 
+In this tutorial we are going to use the Code first EF as our persistence layer, for my conferencing system I want to be able to give out a phone number together with a pin code to the people I want to join. And to be able to keep track of my conferences I want to give them a name. Pretty straight forward data model, create a file and call it ConferenceModels.cs and add below, also set the max length to 4 (we only want to respond to 4 digit codes in this example). For a production app you would need to ensure that the pincode is also unique but we won’t worry about that here. 
 ```csharp
 public class Conference {
 	public int Id { get; set; }
@@ -45,7 +45,7 @@ In pm run
 pm>Update-Database
 ```
 ## Creating a conference
-Great, with this out of the way we can save conferences, open HomeController.cs and add an action called Create, no calling is goin on now, so we are just saving this for future usage. 
+Great, with this out of the way we can save conferences, open HomeController.cs and add an action called Create, no calling is going on now, so we are just saving this for future usage. 
  
 ```
 public async Task<RedirectToRouteResult> Create(Conference model) {
@@ -72,7 +72,7 @@ public ActionResult Index() {
 ```
 
 ## UI
-We want our our home view to show a list of current conferences and the ability to start a new conference. So get rid of all the code and add the following in Views/Home/Index.cshtml
+We want our home view to show a list of current conferences and the ability to start a new conference. So get rid of all the code and add the following in Views/Home/Index.cshtml
 
 ```html
 @model List<ConferenceCalling.Models.Conference>
@@ -112,7 +112,7 @@ We want our our home view to show a list of current conferences and the ability 
 Run it, create a conference and you page should now look like this:
 ![](images/homepage.png)
 
-Thats it for admin page, next step is to add the callbacks to enable people to connect to the conference. 
+That’s it for admin page, next step is to add the callbacks to enable people to connect to the conference. 
 
 ## Callback controller
 Create a new API controller and call it **CallbackController** install our brand new ServerSDK nuget in PM 
@@ -168,7 +168,7 @@ Go to your dashboard, and assign a number that your rent, and configure the URL 
 Deploy and take it for test spin.
 
 ## Manage Conference Participants
-Another cool eature we have is to lits the participants in a conference and manage their mic and even kick them out. Lets start by listing everyone in a conference, in home controller add an action called details. 
+Another cool feature we have is to list the participants in a conference and manage their mic and even kick them out. Let’s start by listing everyone in a conference, in home controller add an action called details. 
 ```csharp
 public async Task<ActionResult> Details(int id) {
     var model = new ConferenceDetailsViewModel();
@@ -200,7 +200,7 @@ public async Task<ActionResult> Details(int id) {
 }
 ```
 ### Add UI
-Add a view with the following elements, dont worry about the form, we will come to that. 
+Add a view with the following elements, don’t worry about the form, we will come to that. 
 ```html
 @model ConferenceCalling.Models.ConferenceDetailsViewModel
 <h1>@Model.Conference.ConferenceName</h1>
@@ -246,9 +246,9 @@ Add a view with the following elements, dont worry about the form, we will come 
     </div>
 </div>
 ```
-Lets take a look at what we added to the table (What a table!). First added the CLI wich is the number someone is calling from, next we display the duration the caller has been in the conference and then we display if the caller is muted or not. After a test spin of the functioinality we will add the methods to mute and kick participants. 
+Let’s take a look at what we added to the table (What a table!). First added the CLI, which is the number someone is calling from, next we display the duration the caller has been in the conference and then we display if the caller is muted or not. After a test spin of the functionality we will add the methods to mute and kick participants. 
  
-Last enable the list in the Home/Index.cshtml to to be clickable, change the list in in **home/index.cshtml** to this
+Last enable the list in the Home/Index.cshtml to be clickable, change the list in in **home/index.cshtml** to this
 ```html
 <div class="col-md-6">
     <h2>Conferences</h2>
@@ -265,7 +265,7 @@ Deploy, make a call to the number, enter your pin. Hit the details and you shoul
 
 
 ## Mute and Kick participants
-Go back to your **Home/Details.cshtml** viewand add a couple of action links in the list of participants. one for Muting unmuting and one for kicking a participant
+Go back to your **Home/Details.cshtml** view and add a couple of action links in the list of participants, one for Muting unmuting and one for kicking a participant
 
 ```html
  @foreach (var participant in @Model.Participants) {
@@ -419,7 +419,7 @@ Deploy, make a call to the number, enter your pin. Hit the details and you shoul
 
 
 ## Add someone to a Conference
-In this sytem I also wanted to add the possibility to add a number and make a call to that person so they join the conference. Lets start with adding a view to show the details for a confernce, in the HomeController.cs add an Action called details, and start with just listing the basic info and the participants for a conference. First we need to create a ViewModel than can hold this info in ConferenceModels.cs. 
+In this system I also wanted to add the possibility to add a number and make a call to that person so they join the conference. Let’s start with adding a view to show the details for a conference, in the HomeController.cs add an Action called details, and start with just listing the basic info and the participants for a conference. First we need to create a ViewModel than can hold this info in ConferenceModels.cs. 
 ```csharp
 public class ConferenceDetailsViewModel {
     public Conference Conference { get; set; }
@@ -440,4 +440,4 @@ public ActionResult Details(int id) {
 ```
 
 
-Now we need to add the code to for the form action to actually call out, this introduces a new type of client called ApiFactory, it makes it super simple to make request to our API and takes care of all the signing and url etc for you. Open home controller and add a Action and name it Callout. 
+Now we need to add the code to for the form action to actually call out, this introduces a new type of client called ApiFactory, it makes it super simple to make request to our API and takes care of all the signing and URL etc. for you. Open home controller and add an Action and name it Callout. 
