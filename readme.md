@@ -457,36 +457,3 @@ namespace ConferenceCalling.Controllers {
 }
 
 ```
-Deploy, make a call to the number, and enter your pin. Hit the details and you should see something like this:
-
-
-
-## Add someone to a Conference
-In this system, we also want the possibility to invite people into the conference by adding their numbers and calling them up.
-
-Let's start with adding a view to show the details for a conference. In the **HomeController.cs**, add an Action called details, and start with just listing basic info plus the participants who's joining the conference.
-
-We need to create a ViewModel than can hold this info in **ConferenceModels.cs**.
- 
-```csharp
-public class ConferenceDetailsViewModel {
-    public Conference Conference { get; set; }
-    public IParticipant[] Participants { get; set; }
-}
-```
-
-```csharp
-public ActionResult Details(int id) {
-    using (var db = new ConferenceContext())
-    {
-        var conference = db.Conferences.FirstOrDefault(c => c.Id == id);
-        if (conference != null)
-            return View(conference);
-    }
-    return RedirectToAction("Index");
-}
-```
-
-Now, we need to add the code for the Form action to actually call out. This introduces a new type of client called ApiFactory: it makes it super simple to make request to our API and takes care of all the signing, URL, etc. for you. Open home controller and add an action and name it Callout.
-
-Gather your people, go virtual and never ever waste time on the “I just need to call X, Y and Z, and then I’ll call you back”-procedure again.
