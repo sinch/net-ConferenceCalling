@@ -57,9 +57,7 @@ Now, in Package Manager Console, run:
 pm>Enable-Migrations
 ```   
 Open **Migrations\Configuration.cs** and set `AutomaticMigrationsEnabled = true;`
-in pm.
-
-Run 
+in pm. Run:
 ```
 pm>Update-Database
 ```
