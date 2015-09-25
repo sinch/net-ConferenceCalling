@@ -1,4 +1,5 @@
 <h1>Build your own Conference Calling in C#</h1>
+![](images/conference.png)
 
 Tight budgets, busy schedules, better technology and the urge for immediacy has made virtual interaction a common communications and collaborations strategy for businesses today. Accordingly, [virtual teams are naturally increasing] (https://www.sinch.com/opinion/must-have-saas-tools-for-every-virtual-team/).
 
@@ -8,7 +9,7 @@ However, as we've pointed out before; being the middleman of whichever project, 
 
 Create a system that connects a bunch of people in a conference call instead!
 
-In this tutorial, we'll show how easy it is to build a regular conference calling solution with both Dial in and Dial out functionality. In part 2 and 3, we'll add VoIP clients to the mix. 
+**In this tutorial, we'll show how easy it is to build a regular conference calling solution with both Dial in and Dial out functionality. In part 2 and 3, we'll add VoIP clients to the mix.**
 
 
 ## Prerequisites 
