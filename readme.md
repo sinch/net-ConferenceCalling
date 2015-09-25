@@ -7,7 +7,7 @@ On top of this, [psychological impacts of voice can be very useful in business] 
 
 However, as we've pointed out before; being the middleman of whichever project, and having to go through the “I just need to call X, Y and Z, and then I’ll call you back”-procedure is super annoying and time consuming.
 
-Create a system that connects a bunch of people in a conference call instead!
+Create a solution that connects a bunch of people in a conference call instead!
 
 **In this tutorial, we'll show how easy it is to build a regular conference calling solution with both Dial in and Dial out functionality. In part 2 and 3, we'll add VoIP clients to the mix.**
 
@@ -135,7 +135,7 @@ Now run it, create a conference, and your page should look like this:
 That's it for admin page. Next step is to add the callbacks to enable people to connect to the conference. 
 
 ## Callback controller
-Create a new API controller and call it **CallbackController**. Then, install our brand new ServerSDK NuGet in PM:
+Create a new API controller and call it CallbackController. Then, install our brand new ServerSDK NuGet in PM:
 
 ```nugetgithub
 pm> Install-Package Sinch.ServerSdk 
@@ -294,6 +294,7 @@ Last enable the list in the Home/Index.cshtml to to be clickable. Change the lis
 ```
 
 Deploy, make a call to the number, and enter your pin. Hit the details and you should see something like this:
+<br>
 
 ![](images/confdetails.png)
 
@@ -485,6 +486,6 @@ public ActionResult Details(int id) {
 }
 ```
 
-Now, we need to add the code for the Form action to actually call out. This introduces a new type of client called **ApiFactory**: it makes it super simple to make request to our API and takes care of all the signing, URL, etc. for you. Open home controller and add an action and name it Callout.
+Now, we need to add the code for the Form action to actually call out. This introduces a new type of client called ApiFactory: it makes it super simple to make request to our API and takes care of all the signing, URL, etc. for you. Open home controller and add an action and name it Callout.
 
-**Gather your people, go virtual and never ever waste time on the “I just need to call X, Y and Z, and then I’ll call you back”-procedure again.**
+Gather your people, go virtual and never ever waste time on the “I just need to call X, Y and Z, and then I’ll call you back”-procedure again.
