@@ -180,7 +180,7 @@ public async Task<SvamletModel> Post(CallbackEventModel model) {
     return builder.Build().Model;
 }
 ```
-First, you look at what type of event is coming in. Based on that you 1) Play a menu and wait for input, and 2) Get that input, look it up in the database, and connect to the conference. 
+First, you look at what type of event is coming in. Based on that, you 1) Play a menu and wait for input, and 2) Get that input, look it up in the database, and connect to the conference. 
 
 ## Configure your app
 Go to your dashboard and assign your rented number. Configure the Voice URL for the app you created.
@@ -486,3 +486,5 @@ public ActionResult Details(int id) {
 ```
 
 Now, we need to add the code for the Form action to actually call out. This introduces a new type of client called **ApiFactory**: it makes it super simple to make request to our API and takes care of all the signing, URL, etc. for you. Open home controller and add an action and name it Callout.
+
+**Gather your people, go virtual and never ever go through the “I just need to call X, Y and Z, and then I’ll call you back”-procedure again.**
