@@ -13,6 +13,7 @@ namespace ConferenceCalling.Models {
 
     public class Conference {
         public int Id { get; set; }
+
         public string ConferenceName { get; set; }
         [MaxLength(4)]
         public string PinCode { get; set; }

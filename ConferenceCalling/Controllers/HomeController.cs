@@ -56,7 +56,7 @@ namespace ConferenceCalling.Controllers {
 
         private IConference Getconference(string conferenceId) {
             // 1. Create an api factory
-            var sinch = SinchFactory.CreateApiFactory(yourkey, yoursecret);
+            var sinch = SinchFactory.CreateApiFactory("d9ddbbc2-4ac8-49f5-92a4-a50efe0b1a4c", "Qf62xGVvlEC/7Sldg9dvLw==");
             // 2. Get a ConferenceApi client
             var conferenceClient = sinch.CreateConferenceApi();
             //fetch the conference 
