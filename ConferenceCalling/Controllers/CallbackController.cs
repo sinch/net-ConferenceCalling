@@ -22,8 +22,23 @@ namespace ConferenceCalling.Controllers {
             var builder = sinch.CreateIceSvamletBuilder();
             switch (evt.Event) {
                 case Event.IncomingCall:
-                    builder.AddNumberInputMenu("menu1", "Enter 4 digits", 4, "Enter 4 digits", 3, TimeSpan.FromSeconds(60));
-                    builder.RunMenu("menu1");
+                    if (model.OriginationType == "MXP")
+                    {
+                        using (var db = new ConferenceContext()) {
+                            var conference = db.Conferences.FirstOrDefault(c => c.PinCode == model.To.Endpoint);
+                            if (conference != null) {
+                                builder.ConnectConference(conference.ConferenceId.ToString()).WithCli(model.From);
+                            } else {
+                                builder.Say("Invalid code").Hangup(HangupCause.Normal);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        builder.AddNumberInputMenu("menu1", "Enter 4 digits", 4, "Enter 4 digits", 3, TimeSpan.FromSeconds(60));
+                        builder.RunMenu("menu1");
+                    }
+                    
                     break;
                 case Event.PromptInput:
                     using (var db = new ConferenceContext()) {

@@ -1,17 +1,38 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    height: 100%;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    height: 100%;
 }
-
+.container {
+    height: 100%;
+    
+    background-color: transparent;
+}
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
+}
+/*rgb(99, 2, 156)*/
+.navbar-inverse {
+     background: rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+
+    color: #999999;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  opacity: 1;
+    color: white;
 }
