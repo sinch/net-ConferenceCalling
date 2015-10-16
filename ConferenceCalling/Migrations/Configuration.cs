@@ -1,19 +1,13 @@
-namespace ConferenceCalling.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+using System.Data.Entity.Migrations;
+using ConferenceCalling.Models;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ConferenceCalling.Models.ConferenceContext>
-    {
-        public Configuration()
-        {
+namespace ConferenceCalling.Migrations {
+    internal sealed class Configuration : DbMigrationsConfiguration<ConferenceContext> {
+        public Configuration() {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(ConferenceCalling.Models.ConferenceContext context)
-        {
+        protected override void Seed(ConferenceContext context) {
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

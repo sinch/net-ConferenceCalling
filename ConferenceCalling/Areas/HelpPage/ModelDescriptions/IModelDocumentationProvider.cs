@@ -1,12 +1,9 @@
 using System;
 using System.Reflection;
 
-namespace ConferenceCalling.Areas.HelpPage.ModelDescriptions
-{
-    public interface IModelDocumentationProvider
-    {
+namespace ConferenceCalling.Areas.HelpPage.ModelDescriptions {
+    public interface IModelDocumentationProvider {
         string GetDocumentation(MemberInfo member);
-
         string GetDocumentation(Type type);
     }
 }

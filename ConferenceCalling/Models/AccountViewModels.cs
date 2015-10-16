@@ -1,16 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MVC5FullApp.Models
-{
-    public class ExternalLoginConfirmationViewModel
-    {
-        [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
-    }
-
-    public class ManageUserViewModel
-    {
+namespace MVC5FullApp.Models {
+  
+    public class ManageUserViewModel {
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]
@@ -28,8 +20,7 @@ namespace MVC5FullApp.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class LoginViewModel
-    {
+    public class LoginViewModel {
         [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }
@@ -43,8 +34,7 @@ namespace MVC5FullApp.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterViewModel
-    {
+    public class RegisterViewModel {
         [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }

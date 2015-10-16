@@ -3,21 +3,22 @@
 <div class="row">
     <div class="col-md-4">
         <h2>Conference details</h2>
-        <b>pin-code:</b>@Model.Conference.PinCode<br />
-        <b>ConfereneId:</b>@Model.Conference.ConferenceId<br />
+        <b>pin-code:</b>@Model.Conference.PinCode<br/>
+        <b>ConfereneId:</b>@Model.Conference.ConferenceId<br/>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 duskbg">
         <h2>Participants</h2>
         <table class="table-responsive table-bordered table-striped">
             <thead>
-                <tr>
-                    <th>Number</th>
-                    <th>Muted</th>
-                    <th>Duration </th>
-                    <th>Action</th>
-                </tr>
+            <tr>
+                <th>Number</th>
+                <th>Muted</th>
+                <th>Duration </th>
+                <th>Action</th>
+            </tr>
             </thead>
-            @foreach (var participant in @Model.Participants) {
+            @foreach (var participant in @Model.Participants)
+            {
                 <tr>
                     <td>
                         @participant.Cli
@@ -26,7 +27,7 @@
                     <td>@TimeSpan.FromSeconds(participant.Duration)</td>
                     <td>
                         @{
-                            string muteAction = (participant.Muted ? "Unmute" : "Mute");
+                            var muteAction = (participant.Muted ? "Unmute" : "Mute");
                         }
                         @Html.ActionLink(muteAction, muteAction, new {id = Model.Conference.Id, conferenceId = @Model.Conference.ConferenceId, participant = participant.Id}) |
                         @Html.ActionLink("Kick", "Kick", new {id = Model.Conference.Id, conferenceId = @Model.Conference.ConferenceId, participant = participant.Id})
@@ -34,15 +35,16 @@
                 </tr>
             }
         </table>
-        @using (Html.BeginForm("Callout", "Home", FormMethod.Post)) {
+        @using (Html.BeginForm("Callout", "Home", FormMethod.Post))
+        {
             <div class="input-group">
                 <label>
-                    Number to add to conference (E.164 format)<br />
-                    <input type="tel" class="form-control" name="phonenumber" placeholder="+15612600684" />
+                    Number to add to conference (E.164 format)<br/>
+                    <input type="tel" class="form-control" name="phonenumber" placeholder="+15612600684"/>
                 </label>
             </div>
             <div class="input-group">
-                <input class="btn btn-default" type="submit" value="Call number" />
+                <input class="btn btn-default" type="submit" value="Call number"/>
             </div>
         }
     </div>

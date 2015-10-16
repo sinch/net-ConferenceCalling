@@ -1,12 +1,8 @@
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace ConferenceCalling.Areas.HelpPage.ModelDescriptions
-{
-    public class EnumTypeModelDescription : ModelDescription
-    {
-        public EnumTypeModelDescription()
-        {
+namespace ConferenceCalling.Areas.HelpPage.ModelDescriptions {
+    public class EnumTypeModelDescription : ModelDescription {
+        public EnumTypeModelDescription() {
             Values = new Collection<EnumValueDescription>();
         }
 

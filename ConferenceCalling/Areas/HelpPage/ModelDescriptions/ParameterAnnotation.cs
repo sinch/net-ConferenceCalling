@@ -1,11 +1,8 @@
 using System;
 
-namespace ConferenceCalling.Areas.HelpPage.ModelDescriptions
-{
-    public class ParameterAnnotation
-    {
+namespace ConferenceCalling.Areas.HelpPage.ModelDescriptions {
+    public class ParameterAnnotation {
         public Attribute AnnotationAttribute { get; set; }
-
         public string Documentation { get; set; }
     }
 }

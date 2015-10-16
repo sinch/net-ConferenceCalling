@@ -1,14 +1,12 @@
 using System;
 
-namespace ConferenceCalling.Areas.HelpPage
-{
+namespace ConferenceCalling.Areas.HelpPage {
     /// <summary>
-    /// This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+    ///     This represents a preformatted text sample on the help page. There's a display template named TextSample associated
+    ///     with this class.
     /// </summary>
-    public class TextSample
-    {
-        public TextSample(string text)
-        {
+    public class TextSample {
+        public TextSample(string text) {
             if (text == null)
             {
                 throw new ArgumentNullException("text");
@@ -16,21 +14,18 @@ namespace ConferenceCalling.Areas.HelpPage
             Text = text;
         }
 
-        public string Text { get; private set; }
+        public string Text { get; }
 
-        public override bool Equals(object obj)
-        {
-            TextSample other = obj as TextSample;
+        public override bool Equals(object obj) {
+            var other = obj as TextSample;
             return other != null && Text == other.Text;
         }
 
-        public override int GetHashCode()
-        {
+        public override int GetHashCode() {
             return Text.GetHashCode();
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             return Text;
         }
     }

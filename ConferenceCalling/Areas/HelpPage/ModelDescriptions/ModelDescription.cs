@@ -1,16 +1,12 @@
 using System;
 
-namespace ConferenceCalling.Areas.HelpPage.ModelDescriptions
-{
+namespace ConferenceCalling.Areas.HelpPage.ModelDescriptions {
     /// <summary>
-    /// Describes a type model.
+    ///     Describes a type model.
     /// </summary>
-    public abstract class ModelDescription
-    {
+    public abstract class ModelDescription {
         public string Documentation { get; set; }
-
         public Type ModelType { get; set; }
-
         public string Name { get; set; }
     }
 }

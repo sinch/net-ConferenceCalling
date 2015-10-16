@@ -1,13 +1,32 @@
 ﻿@model List<ConferenceCalling.Models.Conference>
+<div id="video-bg">
+    <video autoplay loop muted id="bgvid">
+        <source src="/content/timelapse.mp4" type="video/mp4">
+    </video>
+    <div id="video-overlay"></div>
+</div>
+@*<div id="videooverlay">
+
+    </div>*@
+
 <div class="jumbotron">
-    <h1>The conference system</h1>
-    <p>Call +1786-408-8194 to join</p>
+    <h1>Welcome to Sinch!</h1>
+    <p>Looking for a conference? </p>
+    @Html.ActionLink("Join here", "JoinConference")
 </div>
 <div class="row">
     <div class="col-md-6">
-     
+
 
     </div>
     <div class="col-md-6">
     </div>
 </div>
+
+
+@section scripts
+{
+
+
+
+}

@@ -1,0 +1,65 @@
+﻿@model ConferenceCalling.Models.CreateConferenceModel
+
+@{
+    ViewBag.Title = "Create a conference";
+}
+<div id="staticbgphoto">
+
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h2>Create a new conference</h2>
+        <p>
+            @using (Html.BeginForm("Create", "Conference", FormMethod.Post)) {
+                <label>
+                    Conference name<br/>
+                    @Html.EditorFor(m=> m.Conference.ConferenceName)
+                </label>
+                <label>
+                    Date<br/>
+                    @Html.EditorFor(m => m.Conference.ConferenceDate)
+                </label>
+                <label>
+                    Time<br />
+                    @Html.EditorFor(m => m.Conference.ConferenceTime)
+                </label>
+                <br/>
+                <label>
+                    Pin<br />
+                    @Model.Conference.PinCode
+                    @Html.HiddenFor(m=>m.Conference.PinCode)
+                </label>
+                <br/>
+                <h2>Invite people</h2>
+                <table>
+                    <tr>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>Phone</td>
+                    </tr>
+
+                    @for (int i = 0; i < Model.Participants.Count; i++) {
+                        
+                        <tr>
+                            <td>@Html.TextBoxFor(p => p.Participants[i].Name)</td>
+                            <td>@Html.TextBoxFor(p => p.Participants[i].Email)</td>
+                            <td>@Html.TextBoxFor(p => p.Participants[i].Phone)</td>
+                        </tr>
+                    }
+                </table>
+                    <input class="btn btn-default" type="submit" value="Create" />
+            }
+        </p>
+    </div>
+</div>
+
+@section scripts
+{
+    @*<link href="~/Content/datepicker.css" rel="stylesheet">
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script>
+        $('#ConferenceDate').datepicker({
+            format: 'mm-dd-yyyy hh:mm'
+        });
+    </script>*@
+}

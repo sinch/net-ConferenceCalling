@@ -1,0 +1,21 @@
+﻿@model List<ConferenceCalling.Models.Conference>
+
+@{
+    ViewBag.Title = "Conferences";
+    
+}
+<div id="staticbgphoto">
+
+</div>
+<h2>My conferences</h2>
+
+<ul>
+    @foreach (var conf in Model) {
+
+        <li>
+            @conf.ConferenceDate @conf.ConferenceTime @conf.ConferenceName || @Html.ActionLink("Calendar", "Calendar", new {id = conf.ConferenceId})<br/>
+            @conf.PinCode
+        </li>
+    }
+
+</ul>

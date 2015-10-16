@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using ConferenceCalling.Models;
@@ -22,44 +20,42 @@ namespace ConferenceCalling.Controllers {
             var builder = sinch.CreateIceSvamletBuilder();
             switch (evt.Event) {
                 case Event.IncomingCall:
-                    if (model.OriginationType == "MXP")
-                    {
-                        using (var db = new ConferenceContext()) {
-                            var conference = db.Conferences.FirstOrDefault(c => c.PinCode == model.To.Endpoint);
-                            if (conference != null) {
-                                builder.ConnectConference(conference.ConferenceId.ToString()).WithCli(model.From);
-                            } else {
-                                builder.Say("Invalid code").Hangup(HangupCause.Normal);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        builder.AddNumberInputMenu("menu1", "Enter 4 digits", 4, "Enter 4 digits", 3, TimeSpan.FromSeconds(60));
+                    if (model.OriginationType == "MXP") {
+                        await ConnectToConference(model.To.Endpoint, "", builder);
+                    } else {
+                        builder.AddNumberInputMenu("menu1", "Enter 4 digit pin", 4, "Enter 4 digit pin", 3,
+                            TimeSpan.FromSeconds(60));
                         builder.RunMenu("menu1");
                     }
-                    
                     break;
                 case Event.PromptInput:
-                    using (var db = new ConferenceContext()) {
-
-                        var conference = db.Conferences.FirstOrDefault(c => c.PinCode == model.MenuResult.Value);
-                        if (conference != null)
-                        {
-                            builder.ConnectConference(conference.ConferenceId.ToString());
-                        } else {
-                            builder.Say("Invalid code").Hangup(HangupCause.Normal);
-                        }
-                    }
-
+                    await ConnectToConference(model.MenuResult.Value, model.From, builder);
                     break;
                 case Event.AnsweredCall:
                     builder.Continue();
+                    break;
+                case Event.DisconnectedCall:
                     break;
                 default:
                     break;
             }
             return builder.Build().Model;
         }
+
+        private async Task ConnectToConference(string  pinCode, string cli, IIceSvamletBuilder builder) {
+            using (var db = new ConferenceContext()) {
+
+                var conference =
+                    await db.Conferences.FirstOrDefaultAsync(c => c.PinCode == pinCode && c.ConferenceDate == DateTime.Today);
+                if (conference != null) {
+                    builder.ConnectConference(conference.ConferenceId.ToString()).WithCli(cli);
+                    builder.Say(", Welcome to the conference");
+                } else {
+                    builder.Say("Invalid code").Hangup(HangupCause.Normal);
+                }
+            }
+        }
     }
+
+
 }

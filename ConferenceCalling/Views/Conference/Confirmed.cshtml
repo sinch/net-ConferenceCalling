@@ -1,0 +1,16 @@
+﻿@model ConferenceCalling.Models.CreateConferenceModel
+
+@{
+    ViewBag.Title = "Confirmed";
+}
+<div id="staticbgphoto">
+
+</div>
+<h2>The code is @Model.Conference.PinCode</h2>
+Add it to your calendar @Html.ActionLink("Calendar", "Calendar", new {id= Model.Conference.ConferenceId})
+
+
+
+
+
+

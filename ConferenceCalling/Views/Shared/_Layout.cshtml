@@ -1,44 +1,47 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="~/" class="navbar-brand">
-                    <img src="https://www.sinch.com/wp-content/themes/sinch/img/sinch-logo-white.svg" style="width:105px; height: 50px;"/>
-                </a>
-                
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new {area = ""}, null)</li>
-                    <li>@Html.ActionLink("Join a conference", "JoinConference", "Home", new { area = "" }, null)</li>
-                     <li>@Html.ActionLink("API", "Index", "Help", new {area = ""}, null)</li>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="~/" class="navbar-brand">
+                <img src="https://www.sinch.com/wp-content/themes/sinch/img/sinch-logo-white.svg" style="height: 50px; width: 105px;"/>
+            </a>
 
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-            
         </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Join a conference", "JoinConference", "Conference", new {area = ""}, null)</li>
+                @if (Request.IsAuthenticated) {
+                    <li>@Html.ActionLink("Create conference", "Create", "Conference", new {area = ""}, null)</li>
+                    <li>@Html.ActionLink("My Conferences", "MyConferences", "Conference", new { area = "" }, null)</li>
+                }
+
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+
     </div>
+</div>
+<div class="clear-fix" style="padding-top: 50px;">
     <div class="container body-content">
         @RenderBody()
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+</div>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", false)
 </body>
 </html>

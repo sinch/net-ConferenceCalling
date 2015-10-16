@@ -1,38 +1,136 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿
+
+body {
+    /*background-image: url('/content/defaultbg.png');*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
     height: 100%;
+    padding-bottom: 20px;
+    padding-top: 50px;
+}
+
+a { color: white; }
+
+div {
+    /*background: rgba(0, 0, 0, 0.1);*/
+    text-shadow: #cccccc;
 }
 
 /* Set padding to keep content from hitting the edges */
+
 .body-content {
+    height: 100%;
     padding-left: 15px;
     padding-right: 15px;
-    height: 100%;
 }
+
 .container {
-    height: 100%;
-    
     background-color: transparent;
+    
+    height: 100%;
 }
+
 /* Set width on the form input elements since they're 100% wide by default */
+
 input,
 select,
-textarea {
-    max-width: 280px;
-}
+textarea { max-width: 280px; }
+
 /*rgb(99, 2, 156)*/
+
+.duskbg {
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
 .navbar-inverse {
-     background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.3);
     color: white;
 }
 
-.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+.jumbotron {
 
-    color: #999999;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
 }
 
-.navbar-inverse .navbar-nav > li > a {
-  opacity: 1;
-    color: white;
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus { color: #999999; }
+
+.navbar-inverse .navbar-nav > li > a { color: white; }
+
+.navbar-nav { padding-top: 30px; }
+
+
+div#videooverlay {
+    /*background-color: rgba(99, 2, 156, 0.3);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -99;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background-size: cover;*/
+}
+
+#staticbg {
+ background-image: url('/content/purplebg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;   
+    z-index: -1000;
+    position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+
+#staticbgphoto {
+ background-image: url('/content/defaultbg.png');
+    background-repeat: no-repeat;
+    background-size: cover;   
+    z-index: -1000;
+    position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+#video-bg {
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  overflow: hidden;
+    z-index: -1000;
+}
+#video-bg > video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+    z-index: -999;
+    opacity: 0.8;
+}
+#video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+    z-index: -998;
+    background-color: rgba(99, 2, 156, 0.3)
+    
+}
+/* 1. No object-fit support: */
+@media (min-aspect-ratio: 16/9) {
+  #video-bg > video { height: 300%; top: -100%; }
+}
+@media (max-aspect-ratio: 16/9) {
+  #video-bg > video { width: 300%; left: -100%; }
+}
+/* 2. If supporting object-fit, overriding (1): */
+@supports (object-fit: cover) {
+  #video-bg > video {
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
 }

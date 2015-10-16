@@ -1,0 +1,165 @@
+﻿@model dynamic
+<div id="staticbg">
+    
+</div>
+<div class="row">
+    <div 
+         style="-webkit-transform: translate(-50%, -50%); left: 50%; position: fixed; top: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.4); padding: 25px;">
+        <form id="newCall" style="color: white">
+            <div class="form-group">
+                <span class="lead">Your name:</span><br/>
+                <input type="text" id="userName" name="userName"/><br/>
+                <span class="lead">Conference pin:</span><br/>
+                <input type="text" id="pinCode" name="pinCode"/><br/>
+            </div>
+           
+            <div id="participants">
+
+
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <button class="btn btn-default" id="call">Join conference</button>
+                
+                <div class="lead">Or call +1(786)-408-8194 to join</div>
+            </div>
+           
+        </form>
+        <div id="incall">
+            <button class="btn btn-default" style="display: none" id="hangup">Hangup</button>
+        </div>
+        <audio id="incoming" autoplay></audio>
+        <audio id="ringback" src="~/content/ringback.wav" loop></audio>
+        <audio id="ringtone" src="~/content/phone_ring.wav" loop></audio>
+    </div>
+    <div class="col-md-10" style="bottom: 0px; color: white; height: 100px; overflow-x: hidden; overflow-y: auto; position: absolute;">
+        <div id="callLog">
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts
+{
+
+    <script src="~/Scripts/sinch.min.js"></script>
+    <script>
+        //Video section
+
+        console.log($('#bgvid').id);
+        $('#bgvid').bind('ended', function() {
+            console.log('Video has ended!');
+        });
+
+        //function restartVideo() {
+        //    vid.currentTime = 0.1; //setting to zero breaks iOS 3.2, the value won't update, values smaller than 0.1 was causing bug as well.
+        //    vid.play();
+        //}
+
+
+        //end video
+
+        /*** Set up sinchClient ***/
+
+        function showUI(incall) {
+            if (incall) {
+                $("#newCall").hide();
+                $("#incall").show();
+            }
+        }
+
+        sinchClient = new SinchClient({
+            applicationKey: '@ViewBag.applicationKey',
+            capabilities: { calling: true },
+            startActiveConnection: true, /* NOTE: This is required if application is to receive calls / instant messages. */
+            //Note: For additional loging, please uncomment the three rows below
+            onLogMessage: function(message) {
+                console.log(message);
+            }
+        });
+
+        /*** Define listener for managing calls ***/
+        var callListeners = {
+            onCallProgressing: function(call) {
+                $('audio#ringback').prop("currentTime", 0);
+                $('audio#ringback').trigger("play");
+
+                //Report call stats
+                $('div#callLog').prepend('<div id="stats">Ringing...</div>');
+            },
+            onCallEstablished: function(call) {
+                $('audio#incoming').attr('src', call.incomingStreamURL);
+                $('audio#ringback').trigger("pause");
+                $('audio#ringtone').trigger("pause");
+                showUI(true);
+                //Report call stats
+                var callDetails = call.getDetails();
+                $('div#callLog').prepend('<div id="stats">Answered at: ' + (callDetails.establishedTime) + '</div>');
+            },
+            onCallEnded: function(call) {
+                $('audio#ringback').trigger("pause");
+                $('audio#ringtone').trigger("pause");
+                $('audio#incoming').attr('src', '');
+                showUI(false);
+                //Report call stats
+                var callDetails = call.getDetails();
+                $('div#callLog').prepend('<div id="stats">Ended: ' + callDetails.endedTime + '</div>');
+                $('div#callLog').prepend('<div id="stats">Duration (s): ' + callDetails.duration + '</div>');
+                $('div#callLog').prepend('<div id="stats">End cause: ' + call.getEndCause() + '</div>');
+                if (call.error) {
+                    $('div#callLog').prepend('<div id="stats">Failure message: ' + call.error.message + '</div>');
+                }
+            }
+        }; /*** Set up callClient and define how to handle incoming calls ***/
+
+        var callClient = sinchClient.getCallClient();
+        callClient.initStream().then(function() { // Directly init streams, in order to force user to accept use of media sources at a time we choose
+            $('div.frame').not('#chromeFileWarning').show();
+        });
+        var call;
+        var started = false;
+        /*** Make a new data call ***/
+        var connectionId;
+        $('button#call').click(function(event) {
+            event.preventDefault();
+            showUI(true);
+            if (!started) {
+                $.getJSON("getTicket", { id: $('#userName').val() }, function(ticket) {
+                    sinchClient.start(ticket).then(
+                        function() {
+                            started = true;
+                            joinConference();
+                        });
+                });
+            } else {
+                joinConference();
+            }
+        });
+
+        function joinConference() {
+            //Store session & manage in some way (optional)
+            if (!$(this).hasClass("incall") && !$(this).hasClass("callwaiting")) {
+                $('button').addClass('incall');
+                $('div#callLog').prepend('<div id="title">Joining conference ' + $('#pinCode').val() + '</div>');
+                call = callClient.callConference($('#pinCode').val(), { connectionID: connectionId });
+                call.addEventListener(callListeners);
+            }
+        }
+
+        /*** Hang up a call ***/
+
+        $('button#hangup').click(function(event) {
+            event.preventDefault();
+            call.hangup();
+        });
+
+        /** Chrome check for file - This will warn developers of using file: protocol when testing WebRTC **/
+        if (location.protocol == 'file:' && navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
+            $('div#chromeFileWarning').show();
+        }
+
+        $('button').prop('disabled', false); //Solve Firefox issue, ensure buttons always clickable after load
+    </script>
+
+}
