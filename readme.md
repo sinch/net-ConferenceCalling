@@ -1,7 +1,5 @@
 #Build your own Conference Calling System in C# 
 
-![Conference Calling System in C#](images/conference.png)
-
 Tight budgets, busy schedules, better technology and the urge for immediacy has made virtual interaction a common communications and collaborations strategy for businesses today. Accordingly, [virtual teams are naturally increasing] (https://www.sinch.com/opinion/must-have-saas-tools-for-every-virtual-team/).
 
 On top of this, [psychological impacts of voice can be very useful in business] (https://www.sinch.com/learn/psychological-impacts-voice-business/), as voice is our most powerful tool for communication.
