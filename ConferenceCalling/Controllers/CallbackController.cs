@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -13,8 +13,9 @@ using Sinch.ServerSdk.Calling.Models;
 using Sinch.ServerSdk.Models;
 
 namespace ConferenceCalling.Controllers {
+    [RoutePrefix("callback")]
     public class CallbackController : ApiController {
-        [HttpPost]
+        [HttpPost, Route("post")]
         public async Task<SvamletModel> Post(CallbackEventModel model) {
             var sinch = SinchFactory.CreateCallbackResponseFactory(Locale.EnUs);
             var reader = sinch.CreateEventReader();
